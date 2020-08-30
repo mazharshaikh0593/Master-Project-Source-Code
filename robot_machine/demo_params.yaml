@@ -1,0 +1,135 @@
+mqtt:
+  client:
+    protocol: 4      # MQTTv311
+  connection:
+    host: localhost
+    port: 1883
+    keepalive: 60
+  private_path: device/001
+serializer: json:dumps
+deserializer: json:loads
+bridge:
+  # rviz - /robot_1/move_base_node/local_costmap/footprint
+  - factory: mqtt_bridge.bridge:RosToMqttBridge
+    msg_type: geometry_msgs.msg:PolygonStamped
+    topic_from: /robot_1/move_base_node/local_costmap/footprint
+    topic_to: robot_1/move_base_node/local_costmap/footprint
+  # rviz - /robot_2/move_base_node/local_costmap/footprint
+  - factory: mqtt_bridge.bridge:RosToMqttBridge
+    msg_type: geometry_msgs.msg:PolygonStamped
+    topic_from: /robot_2/move_base_node/local_costmap/footprint
+    topic_to: robot_2/move_base_node/local_costmap/footprint
+  # rviz - /robot_3/move_base_node/local_costmap/footprint
+  - factory: mqtt_bridge.bridge:RosToMqttBridge
+    msg_type: geometry_msgs.msg:PolygonStamped
+    topic_from: /robot_3/move_base_node/local_costmap/footprint
+    topic_to: robot_2/move_base_node/local_costmap/footprint
+
+  # rviz - /map_merge/map
+  - factory: mqtt_bridge.bridge:RosToMqttBridge
+    msg_type: nav_msgs.msg:OccupancyGrid
+    topic_from: /map_merge/map
+    topic_to: map_merge/map
+
+
+  # rviz - /robot_1/move_base_node/global_costmap/costmap
+  - factory: mqtt_bridge.bridge:RosToMqttBridge
+    msg_type: nav_msgs.msg:OccupancyGrid
+    topic_from: /robot_1/move_base_node/global_costmap/costmap
+    topic_to: robot_1/move_base_node/global_costmap/costmap
+  # rviz - /robot_2/move_base_node/global_costmap/costmap
+  - factory: mqtt_bridge.bridge:RosToMqttBridge
+    msg_type: nav_msgs.msg:OccupancyGrid
+    topic_from: /robot_2/move_base_node/global_costmap/costmap
+    topic_to: robot_2/move_base_node/global_costmap/costmap
+  # rviz - /robot_3/move_base_node/global_costmap/costmap
+  - factory: mqtt_bridge.bridge:RosToMqttBridge
+    msg_type: nav_msgs.msg:OccupancyGrid
+    topic_from: /robot_3/move_base_node/global_costmap/costmap
+    topic_to: robot_3/move_base_node/global_costmap/costmap
+
+
+  # rviz - /robot_1/move_base_node/NavfnROS/plan
+  - factory: mqtt_bridge.bridge:RosToMqttBridge
+    msg_type: nav_msgs.msg:Path
+    topic_from: /robot_1/move_base_node/NavfnROS/plan
+    topic_to: robot_1/move_base_node/NavfnROS/plan
+  # rviz - /robot_2/move_base_node/NavfnROS/plan
+  - factory: mqtt_bridge.bridge:RosToMqttBridge
+    msg_type: nav_msgs.msg:Path
+    topic_from: /robot_2/move_base_node/NavfnROS/plan
+    topic_to: robot_2/move_base_node/NavfnROS/plan
+  # rviz - /robot_3/move_base_node/NavfnROS/plan
+  - factory: mqtt_bridge.bridge:RosToMqttBridge
+    msg_type: nav_msgs.msg:Path
+    topic_from: /robot_3/move_base_node/NavfnROS/plan
+    topic_to: robot_3/move_base_node/NavfnROS/plan
+
+  # rviz - /shapes
+  - factory: mqtt_bridge.bridge:RosToMqttBridge
+    msg_type: visualization_msgs.msg:Marker
+    topic_from: /shapes
+    topic_to: shapes
+  # rviz - /centroids
+  - factory: mqtt_bridge.bridge:RosToMqttBridge
+    msg_type: visualization_msgs.msg:Marker
+    topic_from: /centroids
+    topic_to: centroids
+  # rviz - /frontiers
+  - factory: mqtt_bridge.bridge:RosToMqttBridge
+    msg_type: visualization_msgs.msg:Marker
+    topic_from: /frontiers
+    topic_to: frontiers
+
+  # rviz - /robot1_rrt_detector_shapes
+  - factory: mqtt_bridge.bridge:RosToMqttBridge
+    msg_type: visualization_msgs.msg:Marker
+    topic_from: /robot1_rrt_detector_shapes
+    topic_to: robot1_rrt_detector_shapes
+  # rviz - /robot2_rrt_detector_shapes
+  - factory: mqtt_bridge.bridge:RosToMqttBridge
+    msg_type: visualization_msgs.msg:Marker
+    topic_from: /robot2_rrt_detector_shapes
+    topic_to: robot2_rrt_detector_shapes
+  # rviz - /robot3_rrt_detector_shapes
+  - factory: mqtt_bridge.bridge:RosToMqttBridge
+    msg_type: visualization_msgs.msg:Marker
+    topic_from: /robot3_rrt_detector_shapes
+    topic_to: robot3_rrt_detector_shapes
+
+
+  # rviz - /clicked_point
+  - factory: mqtt_bridge.bridge:MqttToRosBridge
+    msg_type: geometry_msgs.msg:PointStamped
+    topic_from: clicked_point
+    topic_to: /clicked_point
+
+  # rviz - /initialpose
+  - factory: mqtt_bridge.bridge:MqttToRosBridge
+    msg_type: geometry_msgs.msg:PoseWithCovarianceStamped
+    topic_from: initialpose
+    topic_to: /initialpose
+
+  # rviz - /robot_2/move_base_simple/goal
+  - factory: mqtt_bridge.bridge:MqttToRosBridge
+    msg_type: geometry_msgs.msg:PoseStamped
+    topic_from: robot_2/move_base_simple/goal
+    topic_to: /robot_2/move_base_simple/goal
+
+
+  # rviz - /tf
+  - factory: mqtt_bridge.bridge:RosToMqttBridge
+    msg_type: tf2_msgs.msg:TFMessage
+    topic_from: /tf
+    topic_to: tf
+  # rviz - /tf_static
+  - factory: mqtt_bridge.bridge:RosToMqttBridge
+    msg_type: tf2_msgs.msg:TFMessage
+    topic_from: /tf_static
+    topic_to: tf_static
+  # rviz - /clock
+  - factory: mqtt_bridge.bridge:RosToMqttBridge
+    msg_type: rosgraph_msgs.msg:Clock
+    topic_from: /clock
+    topic_to: clock
+
