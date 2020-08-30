@@ -1,0 +1,26 @@
+<launch>
+
+    <include file="$(find single_mbot_mapping)/launch/mbot_gazebo.launch"/>
+    
+    <group ns="/robot_1">
+        <include file="$(find single_mbot_mapping)/launch/mbot_robot.launch.xml">
+        <arg name="robot_name" value="robot_1"/>
+        <arg name="init_pose" value="-x 0.0 -y 0.0 -z 0.0"/>
+        </include>
+
+        <include file="$(find single_mbot_mapping)/launch/mbot_gmapping.launch">
+            <arg name="namespace" value="robot_1"/>
+        </include>
+
+        <include file="$(find single_mbot_mapping)/launch/mbot_move_base.launch">
+            <arg name="namespace" value="robot_1"/>
+        </include> 
+    </group>
+
+        <!-- Launching RRT package launch file for three robots-->
+    <include file="$(find rrt_exploration)/launch/single.launch"/>
+
+    <include file="$(find single_mbot_mapping)/launch/mbot_rviz.launch"/>
+
+
+</launch>
